@@ -6,10 +6,10 @@ import (
 )
 
 type Item struct {
-	Title       string
-	SKU         string
-	UPC         string
-	Price    string
+	Title string
+	SKU   string
+	UPC   string
+	Price string
 }
 
 func (i *Item) ToString() string {
@@ -28,20 +28,24 @@ func ReadItems(path string) ([]Item, error) {
 	defer xl.Close()
 
 	var items []Item
-	first := true
-	for row := range xl.ReadRows(xl.Sheets[0]) {
-		if first == true {
-			first = false
-			continue
-		}
-		if len(row.Cells) == 4 {
-			items = append(items, Item{
-				Title:       row.Cells[0].Value,
-				SKU:         row.Cells[1].Value,
-				UPC:         row.Cells[2].Value,
-				Price:    row.Cells[3].Value,
-			})
+
+	for i, _ := range xl.Sheets {
+		first := true
+		for row := range xl.ReadRows(xl.Sheets[i]) {
+			if first == true {
+				first = false
+				continue
+			}
+			if len(row.Cells) == 4 {
+				items = append(items, Item{
+					Title: row.Cells[0].Value,
+					SKU:   row.Cells[1].Value,
+					UPC:   row.Cells[2].Value,
+					Price: row.Cells[3].Value,
+				})
+			}
 		}
 	}
+
 	return items, nil
 }

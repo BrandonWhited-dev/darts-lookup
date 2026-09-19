@@ -53,7 +53,7 @@ func startRepl(items []read.Item) {
 		case "help":
 			fmt.Println("Search by Title: Type \"t\" or \"title\" <title>")
 			fmt.Println("Search by SKU: Type \"sku\" <sku>")
-			fmt.Println("Search by UPC: Type \"upc\" <sku>")
+			fmt.Println("Search by UPC: Type \"upc\" <upc>")
 			fmt.Println("* Or just type a title or sku")
 		case "t", "title":
 			title := strings.Join(words[1:], " ")
@@ -101,7 +101,7 @@ func searchTitle(title string, items []read.Item) {
 func searchTitleAll(title string, items []read.Item) {
 	for _, item := range items {
 		if strings.Contains(strings.ToLower(item.Title), title) {
-				fmt.Printf("%s\n", item.ToString())
+			fmt.Printf("%s\n", item.ToString())
 		}
 	}
 }
